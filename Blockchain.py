@@ -25,6 +25,12 @@ class CBlock:
 		digest.update(bytes(str(self.previousHash),'utf-8'))
 		return digest.finalize()
 
+	def is_valid(self):
+		if self.previousBlock == None:
+			return True
+		return self.previousBlock.computeHash() == self.previousHash
+
+
 if __name__ == '__main__':
 	root = CBlock("i am dhruvik",None)
 	b1 = CBlock("i am child",root)

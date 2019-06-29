@@ -1,4 +1,4 @@
-#Transaction.py
+	#Transaction.py
 import Signetures
 
 class Tx:
@@ -23,9 +23,7 @@ class Tx:
 	def is_valid(self):
 		total_in=0
 		total_out=0
-
-
-
+ 
 		message = self.__gather()
 		for addr,amount in self.input:
 			found = False
@@ -56,8 +54,8 @@ class Tx:
 			if amount <0:
 				return False
 
-		if total_out > total_in:
-			return False
+		#if total_out > total_in:
+		# 	return False
 
 		return True
 
@@ -71,8 +69,28 @@ class Tx:
 		data.append(self.input)
 		data.append(self.output)
 		data.append(self.reqd)
-
 		return data
+
+	def __repr__(self):
+		reprstr = "INPUTS : \n"
+		for addr,amt in self.input:
+			reprstr = reprstr + str(amt) + " from " + str(addr) + "\n"
+		reprstr = reprstr + "OUTPUTS : \n"
+
+		for addr,amt in self.output:
+			reprstr = reprstr + str(amt) + " to " + str(addr) + "\n"
+		
+		reprstr = reprstr + "REQD : \n"
+		for r in self.reqd:
+			reprstr = reprstr + str(r) + "\n"
+
+		reprstr = reprstr + "SIGS : \n"
+		for r in self.sigs:
+			reprstr = reprstr + str(r) + "\n"
+
+		reprstr = reprstr + "END\n"
+		return reprstr
+
 
 if __name__ == '__main__':
 	pr1,pu1 = Signetures.generate_keys()
